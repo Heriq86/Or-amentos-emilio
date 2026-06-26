@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orçamento - Emílio Bar e Cozinha</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital@0;1&display=swap');
+
+        :root {
+            --bg-color: #2b3040;
+            --orange: #e96728;
+            --text-light: #cdd1dc;
+            --line-color: #555b70;
+            --border-edit: rgba(255, 255, 255, 0.15);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: #1a1e29;
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .a4-container {
+            width: 1123px;
+            height: 794px;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding: 50px 60px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        /* Top Header */
+        .top-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            font-weight: 300;
+            font-size: 16px;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+
+        .line-container {
+            flex-grow: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 20px;
+            height: 50px; /* Mais espaço para a logo não encostar no restante */
+        }
+
+        .line {
+            width: 100%;
+            height: 1px;
+            background-color: var(--line-color);
+        }
+
+        .logo-marca {
+            position: absolute;
+            bottom: -86px; /* Fica pertinho da linha */
+            max-height: 300px; /* Aumentei o tamanho significativamente */
+            object-fit: contain;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 50px;
+            flex-grow: 1;
+        }
+
+        .left-col { display: flex; flex-direction: column; }
+
+        .greeting-box {
+            font-size: 14px;
+            color: var(--text-light);
+            font-weight: 300;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            padding: 5px;
+            margin-left: -5px;
+            border-left: 3px solid var(--orange);
+            padding-left: 15px;
+        }
+
+        .left-col h2.menu-title { font-size: 28px; font-weight: 300; color: #fff; margin-top: 0; margin-bottom: 20px; letter-spacing: 1px; }
+        .section { margin-bottom: 20px; }
+        .section-title { color: var(--orange); font-size: 16px; font-weight: 400; margin-bottom: 6px; letter-spacing: 0.5px; }
+        .section-subtitle { font-size: 12px; font-style: italic; color: #9299ab; margin-left: 5px; font-weight: 300; }
+
+        [contenteditable="true"], input {
+            border: 1px dashed transparent;
+            outline: none;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+        [contenteditable="true"]:hover, [contenteditable="true"]:focus, input:hover, input:focus {
+            border-color: var(--border-edit); background: rgba(255,255,255,0.02);
+        }
+
+        .menu-items { font-size: 13px; line-height: 1.6; font-weight: 300; color: var(--text-light); min-height: 20px; padding: 4px; margin-left: -4px; }
+        .service-info { margin-top: auto; }
+        .service-info .orange-text { color: var(--orange); font-size: 15px; font-weight: 400; margin-bottom: 5px; }
+        .service-info .grey-text { font-size: 13px; color: var(--text-light); font-weight: 300; }
+
+        .right-col { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+        .custom-title { font-family: 'Playfair Display', serif; color: var(--orange); font-size: 46px; line-height: 1.1; margin-bottom: 10px; text-align: right; width: 100%; }
+
+        .payment-box { margin-top: 30px; text-align: right; }
+        .payment-title { font-size: 14px; color: var(--orange); font-weight: 500; margin-bottom: 8px; letter-spacing: 0.5px; }
+        .payment-text { font-size: 13px; color: var(--text-light); font-weight: 300; line-height: 1.6; padding: 4px; margin-right: -4px; }
+
+        .pricing-section { margin-top: auto; display: flex; flex-direction: column; gap: 15px; }
+        .price-group { display: flex; flex-direction: column; align-items: flex-end; }
+        .price-label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #9299ab; margin-bottom: 5px; }
+        .main-price-display { color: var(--orange); font-size: 42px; font-weight: 300; margin: 5px 0; display: flex; align-items: center; gap: 8px; }
+        .main-price-display span { font-size: 24px; }
+        .main-price-display input { background: transparent; border: 1px dashed var(--border-edit); color: var(--orange); font-size: 42px; text-align: right; width: 150px; font-family: 'Montserrat', sans-serif; font-weight: 300; padding: 0; }
+        .price-subtext { font-size: 11px; color: #9299ab; font-weight: 300; }
+        .total-box { margin-top: 10px; padding-top: 15px; border-top: 1px solid var(--line-color); }
+        .total-box .main-price-display { font-weight: 400; }
+
+        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+        .print-btn {
+            position: fixed; bottom: 30px; right: 30px; background-color: var(--orange); color: #fff; border: none; padding: 15px 25px; border-radius: 30px; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; box-shadow: 0 10px 20px rgba(233, 103, 40, 0.3); z-index: 1000;
+        }
+        .print-btn:hover { transform: translateY(-2px); background-color: #f77a3d; }
+
+        @media print {
+            @page { size: A4 landscape; margin: 0; }
+            body { background-color: var(--bg-color) !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; padding: 0; margin: 0; display: block; }
+            .a4-container { box-shadow: none; width: 297mm; height: 210mm; padding: 15mm 20mm; margin: 0; }
+            [contenteditable="true"], input { border: none !important; background: transparent !important; }
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="print-btn no-print" onclick="window.print()">Salvar PDF (A4)</button>
+
+    <div class="a4-container">
+        
+        <div class="top-header">
+            <span contenteditable="true">EVENTOS</span>
+            <div class="line-container">
+                <img src="Logo_Marca_Bar___Cozinha_-_Branca-removebg-preview.png" alt="Emílio Bar e Cozinha" class="logo-marca">
+                <div class="line"></div>
+            </div>
+            <span contenteditable="true" id="currentYear">2026</span>
+        </div>
+
+        <div class="content-grid">
+            <div class="left-col">
+                <div class="greeting-box" contenteditable="true">
+                    Prezada Carina;<br>
+                    Conforme solicitado, segue nosso Orçamento de sugestão de Cardápio.
+                </div>
+
+                <h2 class="menu-title" contenteditable="true">Menu</h2>
+
+                <div class="section">
+                    <div class="section-title" contenteditable="true">Entradas</div>
+                    <div class="menu-items" contenteditable="true">
+                        Dadinho de Tapioca com geleia de abacaxi;<br>
+                        Boletas de Queijo com geleia de maçã;<br>
+                        Mix de Pasteis (Carne Suculenta, Queijo Mussarela e Alho-Poró);<br>
+                        Bolinho de Abóbora com Carne Seca.
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">
+                        <span contenteditable="true">Prato Principal</span>
+                        <span class="section-subtitle" contenteditable="true">(direito a 1 prato por pessoa)</span>
+                    </div>
+                    <div class="menu-items" contenteditable="true">
+                        Filé de Frango na Mostarda e Mel;<br>
+                        Peixada do Emílio;<br>
+                        Parmegiana (Alcatra, Frango, Beringela ou Tilápia);<br>
+                        Virado ao Paulista;
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">
+                        <span contenteditable="true">Sobremesas</span>
+                        <span class="section-subtitle" contenteditable="true">(direito a 1 sobremesa por pessoa)</span>
+                    </div>
+                    <div class="menu-items" contenteditable="true">
+                        Pudim de Leite Condensado;<br>
+                        Petit Gateau de Chocolate com Sorvete de creme.
+                    </div>
+                </div>
+
+                <div class="service-info">
+                    <div class="orange-text">
+                        Serviço de <span contenteditable="true" style="border-bottom: 1px dashed rgba(255,255,255,0.3); padding: 0 5px;">3</span> horas de duração
+                    </div>
+                    <div class="grey-text">
+                        Nº de Pessoas: <input type="number" id="pessoas" value="40" style="width: 50px; text-align: center; border-bottom: 1px dashed rgba(255,255,255,0.3); padding: 0 5px; color: inherit; font-family: inherit; font-size: inherit;" oninput="calcularTotal()">
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-col">
+                <div class="custom-title" contenteditable="true">
+                    Orçamento<br>Personalizado
+                </div>
+                
+                <div class="payment-box">
+                    <div class="payment-title" contenteditable="true">Condições de Pagamento</div>
+                    <div class="payment-text" contenteditable="true">
+                        • 50% no ato do fechamento<br>
+                        • 50% até 3 dias antes do evento<br>
+                        • Aceitamos PIX, Cartão e Transferência
+                    </div>
+                </div>
+
+                <div class="pricing-section">
+                    <div class="price-group">
+                        <div class="price-label" contenteditable="true">VALOR POR PESSOA</div>
+                        <div class="main-price-display">
+                            <span>R$</span> 
+                            <input type="number" id="valor-pessoa" value="120.00" oninput="calcularTotal()" step="0.01">
+                        </div>
+                        <div class="price-subtext" contenteditable="true">valor sem taxa de exclusividade</div>
+                    </div>
+
+                    <div class="price-group total-box">
+                        <div class="price-label">VALOR TOTAL ESTIMADO</div>
+                        <div class="main-price-display" style="color: #fff;">
+                            <span>R$</span> 
+                            <span id="valor-total" style="font-size: 42px; width: 160px; text-align: right; display: inline-block;">4.800,00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('currentYear').innerText = new Date().getFullYear();
+
+        function calcularTotal() {
+            let pessoas = parseFloat(document.getElementById('pessoas').value);
+            let valor = parseFloat(document.getElementById('valor-pessoa').value);
+            if (isNaN(pessoas) || pessoas < 0) pessoas = 0;
+            if (isNaN(valor) || valor < 0) valor = 0;
+            let total = pessoas * valor;
+            document.getElementById('valor-total').innerText = total.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+        calcularTotal();
+    </script>
+</body>
+</html>
